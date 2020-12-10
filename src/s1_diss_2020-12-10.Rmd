@@ -27,7 +27,9 @@ library(pwr)
 
 Calculating power for a 2 (activists’ political orientation: liberal vs. center) x 2 (policy stance of hypothetical legislator: not at all likely to support vs. moderately likely to support) between-subjects mixed design to test the effects of target’s policy stance and perceived similarity on activists’ choice of, perceived effectiveness, and perceived fluency of two competing 'Long-Term' frames. 
 
-Power analysis indicates that total sample size should be 404. Will recruit an extra 20% to account for attrition, so 
+Power analysis indicates that total sample size should be 404. Will recruit an extra 20% to account for attrition, so 485. 
+
+Power analysis for independent samples t-test necessitates 58; extra 20% = 70.
 
 ```{r, include=FALSE}
 #a = number of groups in Factor A, Political ID of activist (2: Lib, Center)
@@ -45,86 +47,13 @@ ss.2way(a=2, b=2, alpha=0.05, beta=0.15, f.A = 0.0, f.B=0.5,
 #Total sample should be 404. Add extra 20% to account for attrition:
 404*1.20 #484.8
 
-
-
 #What about if I just do power analysis for an independent samples t-test?
+pwr.t.test(d=0.5,power=0.85,sig.level=0.05,type="two.sample",alternative="greater") #We would need n = 58. Add extra 20%:
+58*1.20 #70
 
 ```
 
 
 
 
-
-To calculate power, specify effect size (w), sample size (N), and degrees of freedom, which is the number of categories minus 1 (df = 4 - 1). 
-We also need degrees of freedom. df = (2 - 1) * (2 - 1) = 1
-
-```{r}
-pwr.chisq.test(w = .8, power = 0.8, df = 1, sig.level = 0.05)
-
-for a 2x2 ANOVA that tests effect of activist party and MOC stance on perceived effectiveness of messages with a strong effect size to acheive 80% power, we need
-
-
-#a = number of groups in Factor A, Political ID (2: Dem, Rep, Independent)
-#B = number of groups in Factor B, Treatment Condition (2: Tx vs. C)
-#beta = Type II error probability. if the target power is 85%
-        #(=0.85), the corresponding beta equals 0.15.
-#f.A = effect size of factor A (Politcal ID)
-#f.B = effect size of factor B  (Treatment Condition)
-
-ss.2way(a=3, b=2, alpha=0.05, beta=0.15, f.A=0.74, f.B=0.075,
-        delta.A=NULL, delta.B=NULL, sigma.A=NULL, sigma.B=NULL, B=100)
-
-#Balanced two-way analysis of variance sample size adjustment 
-
-#a = 3
-#b = 2
-#sig.level = 0.05
-#power = 0.85
-#n = 101
-
-#NOTE: n is number in each group, total sample = 606
-
-
-```
-
-pwr.chisq.test(w = .8, power = 0.8, df = 1, sig.level = 0.05)
-
-
-
-pwr.chisq.test(w=ES.w1(null,alt), df=(4-1), power=0.8, sig.level = 0.05)
-
-
-#If I do the average effect sizes of aov 2 and 3, f.A =0.74, f.B =7.5
-
-#___________________________________________________________________
-
-#     POWER ANALYSIS: Sample size calculation for balanced 2-way ANOVA
-
-#___________________________________________________________________
-#a = number of groups in Factor A, Political ID (2: Dem, Rep, Independent)
-#B = number of groups in Factor B, Treatment Condition (2: Tx vs. C)
-#beta = Type II error probability. if the target power is 85%
-        #(=0.85), the corresponding beta equals 0.15.
-#f.A = effect size of factor A (Politcal ID)
-#f.B = effect size of factor B  (Treatment Condition)
-
-ss.2way(a=3, b=2, alpha=0.05, beta=0.15, f.A=0.74, f.B=0.075,
-        delta.A=NULL, delta.B=NULL, sigma.A=NULL, sigma.B=NULL, B=100)
-
-#Balanced two-way analysis of variance sample size adjustment 
-
-#a = 3
-#b = 2
-#sig.level = 0.05
-#power = 0.85
-#n = 101
-
-#NOTE: n is number in each group, total sample = 606
-
-#If we make these groups representative of the political makeup of the Montecito sample:
-#Prop Dem: 280/523 = .53537 * 606 = 324 Dems
-#Prop Rep: 144/523 = .27533 * 606 = 167 Reps
-#Prop Ind: 99/523 = .18929 * 606 = 115 Independents
-
-#______________________________________________________________________
 
